@@ -50,3 +50,14 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Code Composer Project and target files
+
+.ccsproject
+.cproject
+.project
+.settings/
+targetConfigs/
+tm4c123gh6pm.lds
+.launches/
+Debug/
