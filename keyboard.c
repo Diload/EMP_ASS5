@@ -35,18 +35,20 @@
 *****************************************************************************/
 void keyboard_init()
 {
-  #ifndef E_PORTA
-  #define E_PORTA
-  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA;                 // Enable clock for Port A
-  #endif
+    #ifndef E_PORTA
+    #define E_PORTA
+    SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA;                 // Enable clock for Port A
+    #endif
 
-  #ifndef E_PORTE
-  #define E_PORTE
-  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA;                 // Enable clock for Port E
-  #endif
+    #ifndef E_PORTE
+    #define E_PORTE
+    SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA;                 // Enable clock for Port E
+    #endif
 
-  GPIO_PORTA_DIR_R |= 0x1C;
-  GPIO_PORTE_DIR_R &= !(0x0F);
+    GPIO_PORTA_DIR_R |= 0x1C;
+    GPIO_PORTE_DIR_R &= ~(0x0F);
+    GPIO_PORTA_DEN_R |= 0x1C;               // Enable digital function A2-4
+    GPIO_PORTE_DEN_R |= 0x0F;               // Enable digital function E0-3
 
 
 
