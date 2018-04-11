@@ -54,19 +54,6 @@ void keyboard_init()
 
 }
 
-
-void keyboard_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
-/*****************************************************************************
-*   Input    :
-*   Output   :
-*   Function : Task to be run.
-******************************************************************************/
-{
-
-	
-}
-
-
 uint8_t kp_scan(void)
 {
     uint8_t iter = 2, imask[3] = { 0x10, 0x20, 0x40 };
@@ -84,6 +71,18 @@ uint8_t kp_scan(void)
         }
     } while (iter--);
     return answer;
+}
+
+
+void keyboard_read_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function : Task to be run.
+******************************************************************************/
+{
+
+
 }
 
 /****************************** End Of Module *******************************/
