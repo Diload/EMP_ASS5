@@ -6,7 +6,7 @@
 *
 * PROJECT....: ECP
 *
-* DESCRIPTION: Defines the elemtn of the task model..
+* DESCRIPTION: Defines the elements of the task model..
 *
 * Change Log:
 ******************************************************************************
@@ -30,6 +30,7 @@
 #define TASK_UART_RX     USER_TASK+3
 #define TASK_UI          USER_TASK+4
 #define TASK_UART_TX     USER_TASK+5
+#define TASK_KEYBOARD    USER_TASK+6
 
 
 // Interrupt Service Routines.
@@ -53,5 +54,6 @@
 #define Q_UART_TX 	USER_QUEUE
 #define Q_UART_RX   USER_QUEUE+1
 #define Q_LCD       USER_QUEUE+2
+#define Q_KEYBOARD  USER_QUEUE+3
 
 #endif /* _TMODEL_H_ */

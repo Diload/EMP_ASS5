@@ -15,12 +15,13 @@ int main(void)
 /*****************************************************************************
 *   Input    : NONE
 *   Output   : Returns 0
-*   Function : Init hardware and then loop forever
+*   Function : Init hardware and then start rtcs scheduler
 ******************************************************************************/
 {
   init_gpio();
 
   uart0_init( 9600, 8, 1, 'n' );
+  keyboard_init();
 
   init_rtcs();
 
@@ -34,6 +35,8 @@ int main(void)
   start_task( TASK_UART_TX, uart_tx_task );
   start_task( TASK_UART_RX, uart_rx_task );
   start_task( TASK_UI, ui_task );
+  start_task( TASK_KEYBOARD, keyboard_task );
+
 
   schedule();
   return( 0 );
