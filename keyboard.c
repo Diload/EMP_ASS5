@@ -147,7 +147,7 @@ void keyboard_read_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
                 default:
                     break;
                 }
-                put_queue(Q_KEYBOARD, ch);
+                put_queue(Q_KEYBOARD, ch, WAIT_FOREVER);
                 signal(SEM_KEY_RECEIVED);
             }
 
@@ -155,7 +155,7 @@ void keyboard_read_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
     }
     if ((kp_value) && !(rep))
     {
-        rep1++;
+        rep++;
         count = 0;
         s_kp_value = kp_value;
     }
