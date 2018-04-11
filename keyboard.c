@@ -50,8 +50,6 @@ void keyboard_init()
     GPIO_PORTA_DEN_R |= 0x1C;               // Enable digital function A2-4
     GPIO_PORTE_DEN_R |= 0x0F;               // Enable digital function E0-3
 
-
-
 }
 
 uint8_t kp_scan(void)
