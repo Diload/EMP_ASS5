@@ -95,22 +95,29 @@ void rtc_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 void display_rtc_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 {
 
-  move_LCD( 4, 0 );
+  if(wait_sem(SEM_LCD, WAIT_FOREVER))
+  {
+      move_LCD( 4, 0 );
 
-  wr_ch_LCD( (INT8U)(hour/10+'0') );
-  wr_ch_LCD( (INT8U)(hour%10+'0') );
-  if( sec & 0x01 )
-    wr_ch_LCD( ':' );
-  else
-    wr_ch_LCD( ' ' );
-  wr_ch_LCD( (INT8U)(min/10+'0') );
-  wr_ch_LCD( (INT8U)(min%10+'0') );
-  if( sec & 0x01 )
-    wr_ch_LCD( ' ' );
-  else
-    wr_ch_LCD( ':' );
-  wr_ch_LCD( (INT8U)(sec/10+'0') );
-  wr_ch_LCD( (INT8U)(sec%10+'0') );
+      wr_ch_LCD( (INT8U)(hour/10+'0') );
+      wr_ch_LCD( (INT8U)(hour%10+'0') );
+      if( sec & 0x01 )
+        wr_ch_LCD( ':' );
+      else
+        wr_ch_LCD( ' ' );
+      wr_ch_LCD( (INT8U)(min/10+'0') );
+      wr_ch_LCD( (INT8U)(min%10+'0') );
+      if( sec & 0x01 )
+        wr_ch_LCD( ' ' );
+      else
+        wr_ch_LCD( ':' );
+      wr_ch_LCD( (INT8U)(sec/10+'0') );
+      wr_ch_LCD( (INT8U)(sec%10+'0') );
+
+      signal(SEM_LCD);
+  }
+
+
   wait_sem( SEM_RTC_UPDATED, WAIT_FOREVER );
 }
 
