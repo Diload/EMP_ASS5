@@ -83,12 +83,15 @@ void keyboard_read_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
     static INT8U s_kp_value = 0, rep1 = 0, count = 0;
     INT8U kp_value = 0, answer = 0;
     kp_value = kp_scan();
-    if ((kp_value) && !(rep))
+    if ((kp_value) && !(rep1))
     {
-        rep++;
+        rep1++;
         s_kp_value = kp_value;
     }
-    if ()
+    if (1)
+    {
+
+    }
 
 
 }
