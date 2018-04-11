@@ -19,10 +19,11 @@
 
 /***************************** Include files ********************************/
 #include <stdint.h>
+#include "emp_type.h"
 #include "keyboard.h"
 #include "tm4c123gh6pm.h"
-#include "emp_type.h"
 #include "glob_def.h"
+#include "rtc.h"
 #include "tmodel.h"
 /*****************************    Defines    ********************************/
 
@@ -76,11 +77,84 @@ void keyboard_read_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 /*****************************************************************************
 *   Input    :
 *   Output   :
-*   Function : Task to be run.
+*   Function : Task to read keyboard in put into queue.
 ******************************************************************************/
 {
 
 
 }
+
+INT8U inbuff[2];
+
+void keyboard_update_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function : Task to update RTC clock from keyboard input queues.
+******************************************************************************/
+{
+    static INT8U state = STATE_IDLE;
+    static INT8U read_count = 0;
+
+    if(wait_sem(SEM_KEY_RECEIVED, WAIT_FOREVER))
+    {
+        INT8U ch;
+        if(get_queue(Q_KEYBOARD, &ch, WAIT_FOREVER))
+        {
+            if(ch == '*' && state == STATE_IDLE)
+            {
+                state = STATE_READING;
+                wait_sem(SEM_KEY_RTC_STOP, WAIT_FOREVER);
+            }
+
+            if(ch != '#' && state == STATE_READING && read_count < 7)
+            {
+                read_count++;
+
+                switch (read_count)
+                {
+                case 1:
+                    inbuff[0] = ch;
+                    break;
+                case 2:
+                    inbuff[1] = ch;
+                    set_hour( (inbuff[0]-'0')*10+inbuff[1]-'0');
+                    signal( SEM_RTC_UPDATED );
+                    break;
+                case 3:
+                    inbuff[0] = ch;
+                    break;
+                case 4:
+                    inbuff[1] = ch;
+                    set_min( (inbuff[0]-'0')*10+inbuff[1]-'0');
+                    signal( SEM_RTC_UPDATED );
+                    break;
+                case 5:
+                    inbuff[0] = ch;
+                    break;
+                case 6:
+                    inbuff[1] = ch;
+                    set_sec( (inbuff[0]-'0')*10+inbuff[1]-'0');
+                    signal( SEM_RTC_UPDATED );
+                    break;
+                default:
+                    break;
+
+                }
+
+
+            }
+            else
+            {
+                state = STATE_IDLE;
+                read_count = 0;
+                signal(SEM_KEY_RTC_STOP);
+            }
+
+        }
+    }
+
+}
+
 
 /****************************** End Of Module *******************************/

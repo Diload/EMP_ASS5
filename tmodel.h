@@ -24,13 +24,14 @@
 
 // Tasks.
 // ------
-#define TASK_RTC            USER_TASK
-#define TASK_DISPLAY_RTC    USER_TASK+1
-#define TASK_LCD            USER_TASK+2
-#define TASK_UART_RX        USER_TASK+3
-#define TASK_UI             USER_TASK+4
-#define TASK_UART_TX        USER_TASK+5
-#define TASK_KEYBOARD_READ  USER_TASK+6
+#define TASK_RTC                USER_TASK
+#define TASK_DISPLAY_RTC        USER_TASK+1
+#define TASK_LCD                USER_TASK+2
+#define TASK_UART_RX            USER_TASK+3
+#define TASK_UI                 USER_TASK+4
+#define TASK_UART_TX            USER_TASK+5
+#define TASK_KEYBOARD_READ      USER_TASK+6
+#define TASK_KEYBOARD_UPDATE    USER_TASK+7
 
 
 // Interrupt Service Routines.
@@ -41,6 +42,8 @@
 // -----------
 #define SEM_LCD          USER_SEM
 #define SEM_RTC_UPDATED  USER_SEM+1
+#define SEM_KEY_RECEIVED USER_SEM+2
+#define SEM_KEY_RTC_STOP USER_SEM+3
 
 
 // Shared State Memory.

@@ -26,6 +26,9 @@
 
 /*****************************    Defines    ********************************/
 
+#define STATE_IDLE      1
+#define STATE_READING   2
+
 /********************** External declaration of Variables *******************/
 
 /*****************************   Constants   ********************************/
@@ -38,7 +41,14 @@ void keyboard_read_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data);
 /*****************************************************************************
 *   Input    : -
 *   Output   : -
-*   Function : Task to be run.
+*   Function : Task to read keyboard in put into queue.
+*****************************************************************************/
+
+void keyboard_update_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data);
+/*****************************************************************************
+*   Input    : -
+*   Output   : -
+*   Function : Task to update RTC clock from keyboard input queues.
 *****************************************************************************/
 
 

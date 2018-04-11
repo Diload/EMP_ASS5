@@ -66,37 +66,40 @@ void rtc_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 *   Function : Disable global interrupt
 ******************************************************************************/
 {
-  switch( my_state )
-  {
-    case 0:
-      set_state( 1 );
-      wait( 100 );
-      break;
-    case 1:
-      sec++;
-      if( sec >= 60 )
-      {
-        min++;
-        if( min >= 60 )
+    if(wait_sem(SEM_KEY_RTC_STOP, WAIT_FOREVER))
+    {
+        switch( my_state )
         {
-       	  hour++;
-          if( hour >= 24 )
-            hour = 0;
-          min = 0;
+        case 0:
+            set_state( 1 );
+            wait( 100 );
+            break;
+        case 1:
+            sec++;
+            if( sec >= 60 )
+            {
+                min++;
+                if( min >= 60 )
+                {
+                    hour++;
+                    if( hour >= 24 )
+                        hour = 0;
+                    min = 0;
+                }
+                sec = 0;
+            }
+            wait( 200 );
+            signal( SEM_RTC_UPDATED );
+            break;
         }
-        sec = 0;
-      }
-      wait( 200 );
-      signal( SEM_RTC_UPDATED );
-      break;
-  }
+        signal(SEM_KEY_RTC_STOP);
+    }
 }
 
 void display_rtc_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 {
 
-  if(wait_sem(SEM_LCD, WAIT_FOREVER))
-  {
+
       move_LCD( 4, 0 );
 
       wr_ch_LCD( (INT8U)(hour/10+'0') );
@@ -114,8 +117,7 @@ void display_rtc_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
       wr_ch_LCD( (INT8U)(sec/10+'0') );
       wr_ch_LCD( (INT8U)(sec%10+'0') );
 
-      signal(SEM_LCD);
-  }
+
 
 
   wait_sem( SEM_RTC_UPDATED, WAIT_FOREVER );

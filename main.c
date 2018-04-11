@@ -9,6 +9,7 @@
 #include "lcd.h"
 #include "uart.h"
 #include "ui.h"
+#include "keyboard.h"
 
 
 int main(void)
@@ -36,6 +37,7 @@ int main(void)
   start_task( TASK_UART_RX, uart_rx_task );
   start_task( TASK_UI, ui_task );
   start_task( TASK_KEYBOARD_READ, keyboard_read_task );
+  start_task( TASK_KEYBOARD_UPDATE, keyboard_update_task );
 
 
   schedule();
