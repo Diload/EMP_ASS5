@@ -24,13 +24,13 @@
 
 // Tasks.
 // ------
-#define TASK_RTC         USER_TASK
-#define TASK_DISPLAY_RTC USER_TASK+1
-#define TASK_LCD         USER_TASK+2
-#define TASK_UART_RX     USER_TASK+3
-#define TASK_UI          USER_TASK+4
-#define TASK_UART_TX     USER_TASK+5
-#define TASK_KEYBOARD    USER_TASK+6
+#define TASK_RTC            USER_TASK
+#define TASK_DISPLAY_RTC    USER_TASK+1
+#define TASK_LCD            USER_TASK+2
+#define TASK_UART_RX        USER_TASK+3
+#define TASK_UI             USER_TASK+4
+#define TASK_UART_TX        USER_TASK+5
+#define TASK_KEYBOARD_READ  USER_TASK+6
 
 
 // Interrupt Service Routines.

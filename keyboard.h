@@ -34,7 +34,7 @@
 
 void keyboard_init(void);
 
-void keyboard_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data);
+void keyboard_read_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data);
 /*****************************************************************************
 *   Input    : -
 *   Output   : -

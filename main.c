@@ -35,7 +35,7 @@ int main(void)
   start_task( TASK_UART_TX, uart_tx_task );
   start_task( TASK_UART_RX, uart_rx_task );
   start_task( TASK_UI, ui_task );
-  start_task( TASK_KEYBOARD, keyboard_task );
+  start_task( TASK_KEYBOARD_READ, keyboard_read_task );
 
 
   schedule();

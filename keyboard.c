@@ -54,8 +54,27 @@ void keyboard_init()
 
 }
 
+uint8_t kp_scan(void)
+{
+    uint8_t iter = 2, imask[3] = { 0x10, 0x20, 0x40 };
+    uint8_t mask[3] = { 0x04, 0x08, 0x10 };
+    uint8_t answer, data;
+    do
+    {
+        GPIO_PORTA_DATA_R |= mask[iter];
+        data = GPIO_PORTE_DATA_R;
+        if (data)
+        {
+            answer += imask[iter];
+            answer += data;
+            iter = 0;
+        }
+    } while (iter--);
+    return answer;
+}
 
-void keyboard_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
+
+void keyboard_read_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -63,9 +82,8 @@ void keyboard_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 ******************************************************************************/
 {
 
-	
-}
 
+}
 
 uint8_t kp_scan(void)
 {
