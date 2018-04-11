@@ -50,19 +50,18 @@ void keyboard_init()
 {
 #ifndef E_PORTA
 #define E_PORTA
-    SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA;             // Enable clock for Port A
+    SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R0; // Clock gate port A
 #endif
 
 #ifndef E_PORTE
 #define E_PORTE
-    SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA;             // Enable clock for Port E
+    SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R4; // Clock gate port E
 #endif
 
-    GPIO_PORTA_DIR_R |= 0x1C;
-    GPIO_PORTE_DIR_R &= ~(0x0F);
+    GPIO_PORTA_DIR_R |= 0x1C;               // Set A pins as output
+    GPIO_PORTE_DIR_R &= 0x00;               // Set E pins as input
     GPIO_PORTA_DEN_R |= 0x1C;               // Enable digital function A2-4
     GPIO_PORTE_DEN_R |= 0x0F;               // Enable digital function E0-3
-
 }
 
 INT8U kp_scan(void)
